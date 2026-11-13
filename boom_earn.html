@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101010">
+  <title>Boom Earn</title>
+  <style>
+    :root{--gold:#f5c542;--bg:#0d0d0f;--panel:#19191d;--muted:#a8a8ad;--line:#303036}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at top,#242016 0,#0d0d0f 42%);color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+    .wrap{width:min(100% - 28px,920px);margin:0 auto;padding:26px 0 42px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}
+    .brand{font-size:24px;font-weight:900;letter-spacing:1px;color:var(--gold)}
+    .tag{font-size:11px;color:#17130a;background:var(--gold);padding:7px 10px;border-radius:99px;font-weight:800}
+    .hero{background:linear-gradient(135deg,#282319,#171717 65%);border:1px solid #5c4b22;border-radius:22px;padding:24px;box-shadow:0 12px 35px #0007}
+    .eyebrow{color:var(--gold);font-size:12px;font-weight:800;letter-spacing:2px}
+    h1{font-size:clamp(28px,6vw,42px);margin:10px 0}
+    .sub{color:var(--muted);line-height:1.5;margin:0}
+    .balance{margin-top:22px;background:#101010;border:1px solid var(--line);border-radius:16px;padding:18px}
+    .balance small{color:var(--muted)}
+    .amount{font-size:36px;font-weight:900;color:var(--gold);margin:7px 0}
+    .rate{font-size:13px;color:#d4d4d8}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:18px}
+    .card h2{font-size:16px;margin:0 0 8px}
+    .card p{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 14px}
+    .icon{font-size:24px;margin-bottom:10px}
+    button{border:0;border-radius:11px;background:var(--gold);color:#17130a;font-weight:800;padding:11px 15px;cursor:pointer}
+    button:disabled{opacity:.45;cursor:not-allowed}
+    .secondary{background:#292929;color:#fff;border:1px solid #444}
+    .full{width:100%}
+    .login{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .notice{margin-top:18px;padding:13px 15px;border:1px solid #514321;background:#201b10;border-radius:12px;color:#e8d7a5;font-size:12px;line-height:1.5}
+    .status{min-height:20px;margin-top:10px;color:var(--gold);font-size:13px}
+    footer{text-align:center;color:#777;font-size:12px;margin-top:22px}
+    input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#101010;color:#fff;margin:6px 0 12px}
+    label{font-size:12px;color:#ccc}
+    @media(max-width:560px){.grid{grid-template-columns:1fr}.hero{padding:19px}.login{align-items:stretch;flex-direction:column}.login button{width:100%}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="brand">💰 BOOM EARN</div>
+      <div class="tag">DEMO WEBSITE</div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">EARN MORE • GROW MORE</div>
+      <h1>Welcome to Boom Earn</h1>
+      <p class="sub">Your simple coin dashboard. Explore the demo features below.</p>
+      <div class="balance">
+        <small>YOUR COIN BALANCE</small>
+        <div class="amount"><span id="coins">100</span> <span style="font-size:18px">Coins</span></div>
+        <div class="rate">1000 Coins = ৳100</div>
+      </div>
+      <div class="login">
+        <div>
+          <strong>Welcome, Guest!</strong>
+          <div class="sub" style="font-size:12px;margin-top:4px">Demo account • 100 starting coins</div>
+        </div>
+        <button class="secondary" id="googleBtn">Continue with Google</button>
+      </div>
+      <div class="status" id="status" aria-live="polite"></div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="icon">🎁</div>
+        <h2>Daily Bonus</h2>
+        <p>Claim 10 demo coins once per day.</p>
+        <button id="bonusBtn">Claim Bonus</button>
+      </article>
+      <article class="card">
+        <div class="icon">👥</div>
+        <h2>Refer & Earn</h2>
+        <p>Share your demo referral code with friends.</p>
+        <button class="secondary" id="referBtn">Copy Referral Code</button>
+      </article>
+      <article class="card">
+        <div class="icon">💳</div>
+        <h2>Withdraw Preview</h2>
+        <p>Preview a withdrawal request. No real payment is processed.</p>
+        <label for="withdrawAmount">Coins to request</label>
+        <input id="withdrawAmount" type="number" min="1000" step="100" value="1000">
+        <button id="withdrawBtn">Preview Request</button>
+      </article>
+      <article class="card">
+        <div class="icon">📊</div>
+        <h2>Coin Conversion</h2>
+        <p>Your demo coin value using the rate you selected.</p>
+        <div class="amount" style="font-size:28px" id="cashValue">৳10.00</div>
+        <div class="rate">Current demo balance value</div>
+      </article>
+    </section>
+
+    <div class="notice">
+      <strong>Important:</strong> This is a front-end demo only. Coins and bonus data are stored in this browser and have no cash value. Google sign-in requires Firebase Authentication setup. Real accounts, secure balances, referrals and payments need a trusted backend; this file does not collect passwords or send money.
+    </div>
+    <footer>© 2026 Boom Earn • Demo interface</footer>
+  </main>
+
+  <script>
+    const COIN_RATE = 0.10; // 1 coin = ৳0.10 (1000 coins = ৳100)
+    const $ = (id) => document.getElementById(id);
+    let coins = Number(localStorage.getItem('boomEarnCoins'));
+    if (!Number.isFinite(coins)) {
+      coins = 100;
+      localStorage.setItem('boomEarnCoins', String(coins));
+    }
+    function update() {
+      $('coins').textContent = coins.toLocaleString();
+      $('cashValue').textContent = '৳' + (coins * COIN_RATE).toFixed(2);
+      localStorage.setItem('boomEarnCoins', String(coins));
+    }
+    function say(message) { $('status').textContent = message; }
+    update();
+
+    $('bonusBtn').addEventListener('click', () => {
+      const today = new Date().toLocaleDateString();
+      if (localStorage.getItem('boomEarnLastBonus') === today) {
+        say('আজকের ডেইলি বোনাস ইতিমধ্যে নেওয়া হয়েছে।');
+        return;
+      }
+      coins += 10;
+      localStorage.setItem('boomEarnLastBonus', today);
+      update();
+      say('সফল! আপনার ডেমো ব্যালেন্সে 10 Coins যোগ হয়েছে।');
+    });
+
+    $('referBtn').addEventListener('click', async () => {
+      const code = 'BOOM-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+      try {
+        await navigator.clipboard.writeText(code);
+        say('Referral code copied: ' + code);
+      } catch {
+        say('Your demo referral code: ' + code);
+      }
+    });
+
+    $('withdrawBtn').addEventListener('click', () => {
+      const amount = Number($('withdrawAmount').value);
+      if (!Number.isInteger(amount) || amount < 1000) {
+        say('Minimum preview request is 1000 Coins.');
+      } else if (amount > coins) {
+        say('আপনার ডেমো ব্যালেন্সে পর্যাপ্ত কয়েন নেই।');
+      } else {
+        say('Demo only: ' + amount.toLocaleString() + ' Coins withdrawal preview created. কোনো টাকা পাঠানো হয়নি।');
+      }
+    });
+
+    $('googleBtn').addEventListener('click', () => {
+      say('Google Login চালু করতে Firebase project ও OAuth configuration যুক্ত করতে হবে।');
+    });
+  </script>
+</body>
+</html>
